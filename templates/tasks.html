@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Tareas</title>
+  </head>
+</html>
+<body>
+    <h1>Lista de Tareas </h1>
+    <!--Form to add a new task-->
+    <form method="POST">
+        <!--Post method to submit data-->
+        <input type="text" name="name" placeholder"Nombre" required>
+        <input type="text" name="description" placeholder="Descripcion" required>
+        <input type="date" name="due_date" required>
+        <button type="submit">Add task</button>
+        
+    <!--list of task -->
+    <ul>
+      
+      <!-- loops through the tasks list-->  
+      {% for task in tasks %}
+      <li>
+        {{task.name}} - {{task.description}} - {{task.due_date}} - {{task.status}}
+        <!-- form to update the status of a task -->
+         <form method="POST" action="/update_status/{{task._id}}">
+          <!-- send a POST request to update task status-->
+           <select name="new_status"> <!-- dropdown to select a new status for the task-->
+              <!-- option for "pending" status, selected if the task is currently pending-->
+               <option value="pending" {% if task.status == "pending" %}selected {% endif %}> Pending </option>
+               <!-- Option for "completed" status, selected if the task is currently completed -->
+               <option value="completed" {% if task.status == "completed" %}selected {% endif %}>Completada</option>
+           </select>
+           <button type="submit">Update Status</button> <!-- boton para enviar el estado de actualizar en el form-->
+           <p>
+            
+           </p>
+          </form>
+      </li>
+      {% endfor %} <!-- ends the loop for tasks-->
+    </ul>
+    <a href="/">Regresar</a> <!--link to return to the main page-->
+</body>
+</html>
+
+
+ 
