@@ -1,4 +1,5 @@
 # import necessary flask modyuls and custom modules
+import os
 from flask import Flask, render_template, request, redirect
 from db import get_database # custom database connection module
 from task_manager import create_task, update_task_status, list_tasks, generate_statistics
@@ -70,7 +71,7 @@ def stats():
 
 # ejecutar la aplicacion en modo debug
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT",5000)))
     
 
 
